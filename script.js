@@ -5,3 +5,25 @@ const supabaseClient = supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
 );
+async function sendReport(){
+
+    const description = document.getElementById("description").value;
+
+    const { data, error } = await supabaseClient
+    .from("reports")
+    .insert([
+        {
+            description: description,
+            status: "new"
+        }
+    ]);
+
+    if(error){
+        alert("Error sending report");
+        console.log(error);
+    }
+    else{
+        alert("Emergency report sent!");
+    }
+
+}
